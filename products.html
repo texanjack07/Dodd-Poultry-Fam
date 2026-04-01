@@ -4,52 +4,185 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dodd Poultry Fam Shop</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
-        body { font-family: Arial, sans-serif; }
-        .product { border: 1px solid #ccc; padding: 10px; margin: 10px; }
-        .available { color: green; }
-        .limited { color: orange; }
-        .unavailable { color: red; }
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .navbar ul { list-style: none; padding: 0; display: flex; gap: 20px; }
+        .navbar a { text-decoration: none; color: #333; font-weight: bold; }
+        
+        .product { 
+            border: 1px solid #ccc; 
+            padding: 15px; 
+            margin: 15px 0; 
+            border-radius: 8px;
+            max-width: 400px;
+        }
+        .available { color: green; font-weight: bold; }
+        .limited { color: orange; font-weight: bold; }
+        
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover { background: #45a049; }
+
+        #cart-summary {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #f8f8f8;
+            padding: 15px;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            min-width: 250px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        #cart-items { margin-top: 10px; }
+        .cart-item { margin: 8px 0; font-size: 0.95em; }
     </style>
 </head>
 <body>
-   <nav class="navbar">
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="products.html">Products</a></li>
-        <li><a href="about.html">About</a></li>
-    </ul>
-   </nav>
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+
     <h1>Welcome to Dodd Poultry Fam Shop</h1>
-    <h2>Products</h2>
+    <h2>Our Products</h2>
+
     <div class="product">
         <h3>Eggs</h3>
         <p>Price: $5 per dozen</p>
         <p>Status: <span class="available">In Stock</span></p>
         <p>Description: Fresh farm eggs from our happy hens.</p>
-        <button>Add to Cart</button>
+        <button class="add-to-cart" data-name="Eggs" data-price="5">Add to Cart</button>
     </div>
+
     <div class="product">
         <h3>Chicks</h3>
         <p>Price: $12 per chick</p>
         <p>Status: <span class="available">In Stock</span></p>
         <p>Description: Healthy chicks ready for your farm.</p>
-        <button>Add to Cart</button>
+        <button class="add-to-cart" data-name="Chicks" data-price="12">Add to Cart</button>
     </div>
+
     <div class="product">
         <h3>Hens</h3>
         <p>Price: $50 per hen</p>
         <p>Status: <span class="available">In Stock</span></p>
         <p>Description: Laying hens for a steady supply of eggs.</p>
-        <button>Add to Cart</button>
+        <button class="add-to-cart" data-name="Hens" data-price="50">Add to Cart</button>
     </div>
+
     <div class="product">
         <h3>Roosters</h3>
-        <p>Price: $20 per rooster (Seasonal)</p>
+        <p>Price: $20 per rooster</p>
         <p>Status: <span class="limited">Seasonal Availability</span></p>
         <p>Description: Proud roosters to guard your flock.</p>
-        <button>Add to Cart</button>
+        <button class="add-to-cart" data-name="Roosters" data-price="20">Add to Cart</button>
     </div>
+
+    <!-- Cart Summary -->
+    <div id="cart-summary">
+        <h3>🛒 Your Cart (<span id="cart-count">0</span>)</h3>
+        <div id="cart-items"></div>
+        <p><strong>Total: $<span id="cart-total">0</span></strong></p>
+        <button onclick="viewCart()">View / Checkout</button>
+        <button onclick="clearCart()" style="background: #f44336; margin-left: 8px;">Clear Cart</button>
+    </div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        function updateCartDisplay() {
+            const countEl = document.getElementById('cart-count');
+            const itemsEl = document.getElementById('cart-items');
+            const totalEl = document.getElementById('cart-total');
+
+            countEl.textContent = cart.length;
+
+            let total = 0;
+            itemsEl.innerHTML = '';
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                const div = document.createElement('div');
+                div.className = 'cart-item';
+                div.innerHTML = `
+                    ${item.name} - $${item.price}
+                    <button onclick="removeFromCart(${index})" style="margin-left:10px; background:#ff9800; font-size:0.8em;">×</button>
+                `;
+                itemsEl.appendChild(div);
+            });
+
+            totalEl.textContent = total.toFixed(2);
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price: parseFloat(price) });
+            saveCart();
+            updateCartDisplay();
+            
+            // Optional: nice feedback
+            const btn = event.currentTarget;
+            const originalText = btn.textContent;
+            btn.textContent = "Added ✓";
+            btn.style.background = "#2196F3";
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = "#4CAF50";
+            }, 1200);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            saveCart();
+            updateCartDisplay();
+        }
+
+        function clearCart() {
+            if (confirm("Clear entire cart?")) {
+                cart = [];
+                saveCart();
+                updateCartDisplay();
+            }
+        }
+
+        function viewCart() {
+            if (cart.length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+            let message = "Your Cart:\n\n";
+            cart.forEach(item => {
+                message += `${item.name} - $${item.price}\n`;
+            });
+            message += `\nTotal: $${cart.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`;
+            alert(message + "\n\n(Checkout functionality can be added later)");
+        }
+
+        // Attach event listeners to all Add to Cart buttons
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const name = this.getAttribute('data-name');
+                const price = this.getAttribute('data-price');
+                addToCart(name, price);
+            });
+        });
+
+        // Initialize cart on page load
+        updateCartDisplay();
+    </script>
 </body>
 </html>
