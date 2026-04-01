@@ -14,7 +14,13 @@
             padding: 15px; 
             margin: 15px 0; 
             border-radius: 8px;
-            max-width: 400px;
+            max-width: 450px;
+        }
+        .product-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
         }
         .available { color: green; font-weight: bold; }
         .limited { color: orange; font-weight: bold; }
@@ -26,9 +32,15 @@
             padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 10px;
         }
         button:hover { background: #45a049; }
+
+        input[type="number"] {
+            width: 70px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
 
         #cart-summary {
             position: fixed;
@@ -38,11 +50,14 @@
             padding: 15px;
             border: 2px solid #4CAF50;
             border-radius: 8px;
-            min-width: 250px;
+            min-width: 280px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-        #cart-items { margin-top: 10px; }
-        .cart-item { margin: 8px 0; font-size: 0.95em; }
+        .cart-item { 
+            margin: 10px 0; 
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
@@ -62,7 +77,11 @@
         <p>Price: $5 per dozen</p>
         <p>Status: <span class="available">In Stock</span></p>
         <p>Description: Fresh farm eggs from our happy hens.</p>
-        <button class="add-to-cart" data-name="Eggs" data-price="5">Add to Cart</button>
+        <div class="product-controls">
+            <label>Qty:</label>
+            <input type="number" class="quantity" value="1" min="1">
+            <button class="add-to-cart" data-name="Eggs" data-price="5">Add to Cart</button>
+        </div>
     </div>
 
     <div class="product">
@@ -70,7 +89,11 @@
         <p>Price: $12 per chick</p>
         <p>Status: <span class="available">In Stock</span></p>
         <p>Description: Healthy chicks ready for your farm.</p>
-        <button class="add-to-cart" data-name="Chicks" data-price="12">Add to Cart</button>
+        <div class="product-controls">
+            <label>Qty:</label>
+            <input type="number" class="quantity" value="1" min="1">
+            <button class="add-to-cart" data-name="Chicks" data-price="12">Add to Cart</button>
+        </div>
     </div>
 
     <div class="product">
@@ -78,7 +101,11 @@
         <p>Price: $50 per hen</p>
         <p>Status: <span class="available">In Stock</span></p>
         <p>Description: Laying hens for a steady supply of eggs.</p>
-        <button class="add-to-cart" data-name="Hens" data-price="50">Add to Cart</button>
+        <div class="product-controls">
+            <label>Qty:</label>
+            <input type="number" class="quantity" value="1" min="1">
+            <button class="add-to-cart" data-name="Hens" data-price="50">Add to Cart</button>
+        </div>
     </div>
 
     <div class="product">
@@ -86,14 +113,18 @@
         <p>Price: $20 per rooster</p>
         <p>Status: <span class="limited">Seasonal Availability</span></p>
         <p>Description: Proud roosters to guard your flock.</p>
-        <button class="add-to-cart" data-name="Roosters" data-price="20">Add to Cart</button>
+        <div class="product-controls">
+            <label>Qty:</label>
+            <input type="number" class="quantity" value="1" min="1">
+            <button class="add-to-cart" data-name="Roosters" data-price="20">Add to Cart</button>
+        </div>
     </div>
 
     <!-- Cart Summary -->
     <div id="cart-summary">
         <h3>🛒 Your Cart (<span id="cart-count">0</span>)</h3>
         <div id="cart-items"></div>
-        <p><strong>Total: $<span id="cart-total">0</span></strong></p>
+        <p><strong>Total: $<span id="cart-total">0.00</span></strong></p>
         <button onclick="viewCart()">View / Checkout</button>
         <button onclick="clearCart()" style="background: #f44336; margin-left: 8px;">Clear Cart</button>
     </div>
@@ -110,31 +141,45 @@
             const itemsEl = document.getElementById('cart-items');
             const totalEl = document.getElementById('cart-total');
 
-            countEl.textContent = cart.length;
-
             let total = 0;
             itemsEl.innerHTML = '';
 
             cart.forEach((item, index) => {
-                total += item.price;
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+
                 const div = document.createElement('div');
                 div.className = 'cart-item';
                 div.innerHTML = `
-                    ${item.name} - $${item.price}
-                    <button onclick="removeFromCart(${index})" style="margin-left:10px; background:#ff9800; font-size:0.8em;">×</button>
+                    <strong>${item.name}</strong><br>
+                    ${item.quantity} × $${item.price} = $${itemTotal.toFixed(2)}
+                    <button onclick="removeFromCart(${index})" style="float:right; background:#ff9800; font-size:0.8em;">Remove</button>
                 `;
                 itemsEl.appendChild(div);
             });
 
+            countEl.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
             totalEl.textContent = total.toFixed(2);
         }
 
         function addToCart(name, price) {
-            cart.push({ name, price: parseFloat(price) });
+            const product = event.currentTarget.parentElement;
+            const qtyInput = product.querySelector('.quantity');
+            const quantity = parseInt(qtyInput.value) || 1;
+
+            // Check if item already exists in cart
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cart.push({ name, price: parseFloat(price), quantity });
+            }
+
             saveCart();
             updateCartDisplay();
-            
-            // Optional: nice feedback
+
+            // Visual feedback
             const btn = event.currentTarget;
             const originalText = btn.textContent;
             btn.textContent = "Added ✓";
@@ -142,7 +187,7 @@
             setTimeout(() => {
                 btn.textContent = originalText;
                 btn.style.background = "#4CAF50";
-            }, 1200);
+            }, 1500);
         }
 
         function removeFromCart(index) {
@@ -166,13 +211,13 @@
             }
             let message = "Your Cart:\n\n";
             cart.forEach(item => {
-                message += `${item.name} - $${item.price}\n`;
+                message += `${item.quantity} × ${item.name} - $${(item.price * item.quantity).toFixed(2)}\n`;
             });
-            message += `\nTotal: $${cart.reduce((sum, item) => sum + item.price, 0).toFixed(2)}`;
-            alert(message + "\n\n(Checkout functionality can be added later)");
+            message += `\nTotal: $${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}`;
+            alert(message + "\n\n(You can connect real checkout like Stripe later)");
         }
 
-        // Attach event listeners to all Add to Cart buttons
+        // Attach event listeners
         document.querySelectorAll('.add-to-cart').forEach(button => {
             button.addEventListener('click', function() {
                 const name = this.getAttribute('data-name');
@@ -181,7 +226,7 @@
             });
         });
 
-        // Initialize cart on page load
+        // Initialize
         updateCartDisplay();
     </script>
 </body>
