@@ -252,42 +252,13 @@
         `;
         document.body.appendChild(modal);
     }
-
-    // Populate the modal
-    const itemsContainer = document.getElementById('modal-cart-items');
-    const totalEl = document.getElementById('modal-cart-total');
-    
-    let itemsHTML = '';
-    let total = 0;
-
-    cart.forEach(item => {
-        const itemTotal = item.price * item.quantity;
-        total += itemTotal;
-        itemsHTML += `
-            <div style="padding: 12px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between;">
-                <div>
-                    <strong>${item.quantity} × ${item.name}</strong>
-                </div>
-                <div style="text-align: right;">
-                    $${itemTotal.toFixed(2)}
-                </div>
-            </div>
-        `;
-    });
-
-    itemsContainer.innerHTML = itemsHTML;
-    totalEl.textContent = total.toFixed(2);
-
-    // Show modal
-    modal.style.display = 'flex';
-}
-
-// Close modal
+// Close the modal
 function closeCartModal() {
     const modal = document.getElementById('cart-modal');
-    if (modal) modal.style.display = 'none';
+    if (modal) {
+        modal.style.display = 'none';
+    }
 }
-
 // Placeholder for future checkout
 function proceedToCheckout() {
     closeCartModal();
