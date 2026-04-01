@@ -205,17 +205,25 @@
         }
 
         function viewCart() {
-            if (cart.length === 0) {
-                alert("Your cart is empty!");
-                return;
-            }
-            let message = "Your Cart:\n\n";
-            cart.forEach(item => {
-                message += `${item.quantity} × ${item.name} - $${(item.price * item.quantity).toFixed(2)}\n`;
-            });
-            message += `\nTotal: $${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}`;
-            alert(message + "\n\n(You can connect real checkout like Stripe later)");
-        }
+    if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+
+    let message = "Your Cart:\n\n";
+
+    cart.forEach(item => {
+        const itemTotal = (item.price * item.quantity).toFixed(2);
+        message += `${item.quantity} × ${item.name} - $${itemTotal}\n`;
+    });
+
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
+
+    message += `\nTotal: $${total}\n\n`;
+    message += "(You can connect real checkout like Stripe later)";
+
+    alert(message);
+}
 
         // Attach event listeners
         document.querySelectorAll('.add-to-cart').forEach(button => {
