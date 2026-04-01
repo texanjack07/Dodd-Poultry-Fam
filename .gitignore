@@ -1,0 +1,24 @@
+# Node.js
+
+# Logs
+logs
+*.log
+npm-debug.log* 
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Syntastic
+*.swp
+
+# Dependency directories
+node_modules
+jspm_packages
+
+# Optional npm cache directory
+.npm
+
+# dotenv environment variable file
+.env
