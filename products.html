@@ -262,7 +262,14 @@ function closeCartModal() {
 // Placeholder for future checkout
 function proceedToCheckout() {
     closeCartModal();
-    alert("Checkout functionality coming soon!\n\nWe'll connect Stripe or similar here later.");
+    
+    // Calculate total
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
+    
+    alert(`Total: $${total}\n\nRedirecting to secure Stripe checkout...\n\n(Real integration coming - we'll use Stripe Checkout Session)`);
+    
+    // TODO: Replace the alert with actual Stripe redirect
+    // Example future line: window.location.href = "https://your-stripe-checkout-url";
 }
         // Attach event listeners
         document.querySelectorAll('.add-to-cart').forEach(button => {
