@@ -73,61 +73,80 @@
     <h2>Our Products</h2>
 
     <div class="product">
-        <h3>Eggs</h3>
-        <p>Price: $5 per dozen</p>
-        <p>Status: <span class="available">In Stock</span></p>
-        <p>Description: Fresh farm eggs from our happy hens.</p>
-        <div class="product-controls">
-            <label>Qty:</label>
-            <input type="number" class="quantity" value="1" min="1">
-            <button class="add-to-cart" data-name="Eggs" data-price="5">Add to Cart</button>
-        </div>
+    <h3>Eggs</h3>
+    <p>Price: $5 per dozen</p>
+    <p>Status: <span class="available">In Stock</span></p>
+    <p>Description: Fresh farm eggs from our happy hens.</p>
+    <div class="product-controls">
+        <label>Qty:</label>
+        <input type="number" class="quantity" value="1" min="1">
+        <button class="add-to-cart" data-name="Eggs" data-price="5">Add to Cart</button>
+        
+        <!-- Pay with Stripe - Eggs -->
+        <a href="https://buy.stripe.com/YOUR_EGGS_LINK_HERE" 
+           target="_blank"
+           class="stripe-pay-btn">
+            💳 Pay with Stripe
+        </a>
     </div>
+</div>
 
-    <div class="product">
-        <h3>Chicks</h3>
-        <p>Price: $12 per chick</p>
-        <p>Status: <span class="available">In Stock</span></p>
-        <p>Description: Healthy chicks ready for your farm.</p>
-        <div class="product-controls">
-            <label>Qty:</label>
-            <input type="number" class="quantity" value="1" min="1">
-            <button class="add-to-cart" data-name="Chicks" data-price="12">Add to Cart</button>
-        </div>
+<div class="product">
+    <h3>Chicks</h3>
+    <p>Price: $12 per chick</p>
+    <p>Status: <span class="available">In Stock</span></p>
+    <p>Description: Healthy chicks ready for your farm.</p>
+    <div class="product-controls">
+        <label>Qty:</label>
+        <input type="number" class="quantity" value="1" min="1">
+        <button class="add-to-cart" data-name="Chicks" data-price="12">Add to Cart</button>
+        
+        <!-- Pay with Stripe - Chicks -->
+        <a href="https://buy.stripe.com/YOUR_CHICKS_LINK_HERE" 
+           target="_blank"
+           class="stripe-pay-btn">
+            💳 Pay with Stripe
+        </a>
     </div>
+</div>
 
-    <div class="product">
-        <h3>Hens</h3>
-        <p>Price: $50 per hen</p>
-        <p>Status: <span class="available">In Stock</span></p>
-        <p>Description: Laying hens for a steady supply of eggs.</p>
-        <div class="product-controls">
-            <label>Qty:</label>
-            <input type="number" class="quantity" value="1" min="1">
-            <button class="add-to-cart" data-name="Hens" data-price="50">Add to Cart</button>
-        </div>
+<div class="product">
+    <h3>Hens</h3>
+    <p>Price: $50 per hen</p>
+    <p>Status: <span class="available">In Stock</span></p>
+    <p>Description: Laying hens for a steady supply of eggs.</p>
+    <div class="product-controls">
+        <label>Qty:</label>
+        <input type="number" class="quantity" value="1" min="1">
+        <button class="add-to-cart" data-name="Hens" data-price="50">Add to Cart</button>
+        
+        <!-- Pay with Stripe - Hens -->
+        <a href="https://buy.stripe.com/YOUR_HENS_LINK_HERE" 
+           target="_blank"
+           class="stripe-pay-btn">
+            💳 Pay with Stripe
+        </a>
     </div>
+</div>
 
-    <div class="product">
-        <h3>Roosters</h3>
-        <p>Price: $20 per rooster</p>
-        <p>Status: <span class="limited">Seasonal Availability</span></p>
-        <p>Description: Proud roosters to guard your flock.</p>
-        <div class="product-controls">
-            <label>Qty:</label>
-            <input type="number" class="quantity" value="1" min="1">
-            <button class="add-to-cart" data-name="Roosters" data-price="20">Add to Cart</button>
-        </div>
+<div class="product">
+    <h3>Roosters</h3>
+    <p>Price: $20 per rooster</p>
+    <p>Status: <span class="limited">Seasonal Availability</span></p>
+    <p>Description: Proud roosters to guard your flock.</p>
+    <div class="product-controls">
+        <label>Qty:</label>
+        <input type="number" class="quantity" value="1" min="1">
+        <button class="add-to-cart" data-name="Roosters" data-price="20">Add to Cart</button>
+        
+        <!-- Pay with Stripe - Roosters -->
+        <a href="https://buy.stripe.com/YOUR_ROOSTERS_LINK_HERE" 
+           target="_blank"
+           class="stripe-pay-btn">
+            💳 Pay with Stripe
+        </a>
     </div>
-
-    <!-- Cart Summary -->
-    <div id="cart-summary">
-        <h3>🛒 Your Cart (<span id="cart-count">0</span>)</h3>
-        <div id="cart-items"></div>
-        <p><strong>Total: $<span id="cart-total">0.00</span></strong></p>
-        <button onclick="viewCart()">View / Checkout</button>
-        <button onclick="clearCart()" style="background: #f44336; margin-left: 8px;">Clear Cart</button>
-    </div>
+</div>
 
     <script>
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
