@@ -130,158 +130,195 @@
     </div>
 
     <script>
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-        function saveCart() {
-            localStorage.setItem('cart', JSON.stringify(cart));
-        }
-
-        function updateCartDisplay() {
-            const countEl = document.getElementById('cart-count');
-            const itemsEl = document.getElementById('cart-items');
-            const totalEl = document.getElementById('cart-total');
-
-            let total = 0;
-            itemsEl.innerHTML = '';
-
-            cart.forEach((item, index) => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
-
-                const div = document.createElement('div');
-                div.className = 'cart-item';
-                div.innerHTML = `
-                    <strong>${item.name}</strong><br>
-                    ${item.quantity} × $${item.price} = $${itemTotal.toFixed(2)}
-                    <button onclick="removeFromCart(${index})" style="float:right; background:#ff9800; font-size:0.8em;">Remove</button>
-                `;
-                itemsEl.appendChild(div);
-            });
-
-            countEl.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
-            totalEl.textContent = total.toFixed(2);
-        }
-
-        function addToCart(name, price) {
-            const product = event.currentTarget.parentElement;
-            const qtyInput = product.querySelector('.quantity');
-            const quantity = parseInt(qtyInput.value) || 1;
-
-            // Check if item already exists in cart
-            const existingItem = cart.find(item => item.name === name);
-            
-            if (existingItem) {
-                existingItem.quantity += quantity;
-            } else {
-                cart.push({ name, price: parseFloat(price), quantity });
-            }
-
-            saveCart();
-            updateCartDisplay();
-
-            // Visual feedback
-            const btn = event.currentTarget;
-            const originalText = btn.textContent;
-            btn.textContent = "Added ✓";
-            btn.style.background = "#2196F3";
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.style.background = "#4CAF50";
-            }, 1500);
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            saveCart();
-            updateCartDisplay();
-        }
-
-        function clearCart() {
-            if (confirm("Clear entire cart?")) {
-                cart = [];
-                saveCart();
-                updateCartDisplay();
-            }
-        }
-
-       function viewCart() {
-    if (cart.length === 0) {
-        alert("Your cart is empty!");
-        return;
+    function saveCart() {
+        localStorage.setItem('cart', JSON.stringify(cart));
     }
 
-    // Create modal if it doesn't exist
-    let modal = document.getElementById('cart-modal');
-    if (!modal) {
-        modal = document.createElement('div');
-        modal.id = 'cart-modal';
-        modal.style.cssText = `
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7); display: flex; align-items: center;
-            justify-content: center; z-index: 1000; font-family: Arial, sans-serif;
-        `;
+    function updateCartDisplay() {
+        const countEl = document.getElementById('cart-count');
+        const itemsEl = document.getElementById('cart-items');
+        const totalEl = document.getElementById('cart-total');
         
-        modal.innerHTML = `
-            <div style="background: white; border-radius: 12px; width: 420px; max-width: 90%; 
-                        box-shadow: 0 10px 30px rgba(0,0,0,0.3); overflow: hidden;">
-                <div style="background: #4CAF50; color: white; padding: 15px 20px; font-size: 18px; font-weight: bold;">
-                    🛒 Your Cart
-                </div>
-                <div id="modal-cart-items" style="padding: 20px; max-height: 400px; overflow-y: auto;"></div>
-                <div style="padding: 15px 20px; border-top: 1px solid #eee; background: #f9f9f9;">
-                    <p style="margin: 0 0 10px 0; font-size: 18px; font-weight: bold;">
-                        Total: $<span id="modal-cart-total" style="color: #4CAF50;"></span>
-                    </p>
-                    <div style="display: flex; gap: 10px;">
-                        <button onclick="closeCartModal()" 
-                                style="flex: 1; padding: 12px; background: #f44336; color: white; border: none; 
-                                       border-radius: 6px; cursor: pointer; font-size: 16px;">
-                            Close
-                        </button>
-                        <button onclick="proceedToCheckout()" 
-                                style="flex: 1; padding: 12px; background: #4CAF50; color: white; border: none; 
-                                       border-radius: 6px; cursor: pointer; font-size: 16px;">
-                            Checkout
-                        </button>
+        let total = 0;
+        itemsEl.innerHTML = '';
+
+        cart.forEach((item, index) => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+
+            const div = document.createElement('div');
+            div.className = 'cart-item';
+            div.innerHTML = `
+                <strong>${item.name}</strong><br>
+                ${item.quantity} × $${item.price} = $${itemTotal.toFixed(2)}
+                <button onclick="removeFromCart(${index})" style="float:right; background:#ff9800; font-size:0.8em;">Remove</button>
+            `;
+            itemsEl.appendChild(div);
+        });
+
+        countEl.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+        totalEl.textContent = total.toFixed(2);
+    }
+
+    function addToCart(name, price) {
+        const quantityInput = event.currentTarget.parentElement.querySelector('.quantity');
+        const quantity = parseInt(quantityInput.value) || 1;
+
+        const existingItem = cart.find(item => item.name === name);
+
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
+            cart.push({ 
+                name: name, 
+                price: parseFloat(price), 
+                quantity: quantity 
+            });
+        }
+
+        saveCart();
+        updateCartDisplay();
+
+        // Visual feedback
+        const btn = event.currentTarget;
+        const originalText = btn.textContent;
+        btn.textContent = "Added ✓";
+        btn.style.background = "#2196F3";
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.background = "#4CAF50";
+        }, 1500);
+    }
+
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        saveCart();
+        updateCartDisplay();
+    }
+
+    function clearCart() {
+        if (confirm("Clear entire cart?")) {
+            cart = [];
+            saveCart();
+            updateCartDisplay();
+        }
+    }
+
+    // ==================== NICE MODAL ====================
+    function viewCart() {
+        if (cart.length === 0) {
+            alert("Your cart is empty!");
+            return;
+        }
+
+        let modal = document.getElementById('cart-modal');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'cart-modal';
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.7); display: flex; align-items: center;
+                justify-content: center; z-index: 1000; font-family: Arial, sans-serif;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: white; border-radius: 12px; width: 420px; max-width: 90%; 
+                            box-shadow: 0 10px 30px rgba(0,0,0,0.3); overflow: hidden;">
+                    <div style="background: #4CAF50; color: white; padding: 15px 20px; font-size: 18px; font-weight: bold;">
+                        🛒 Your Cart
                     </div>
-                    <p style="margin: 12px 0 0 0; font-size: 13px; color: #666; text-align: center;">
-                        (You can connect real checkout like Stripe later)
-                    </p>
+                    <div id="modal-cart-items" style="padding: 20px; max-height: 400px; overflow-y: auto;"></div>
+                    <div style="padding: 15px 20px; border-top: 1px solid #eee; background: #f9f9f9;">
+                        <p style="margin: 0 0 10px 0; font-size: 18px; font-weight: bold;">
+                            Total: $<span id="modal-cart-total" style="color: #4CAF50;"></span>
+                        </p>
+                        <div style="display: flex; gap: 10px;">
+                            <button onclick="closeCartModal()" 
+                                    style="flex: 1; padding: 12px; background: #f44336; color: white; border: none; 
+                                           border-radius: 6px; cursor: pointer; font-size: 16px;">
+                                Close
+                            </button>
+                            <button onclick="proceedToCheckout()" 
+                                    style="flex: 1; padding: 12px; background: #4CAF50; color: white; border: none; 
+                                           border-radius: 6px; cursor: pointer; font-size: 16px;">
+                                Checkout
+                            </button>
+                        </div>
+                        <p style="margin: 12px 0 0 0; font-size: 13px; color: #666; text-align: center;">
+                            (You can connect real checkout like Stripe or PayPal later)
+                        </p>
+                    </div>
                 </div>
-            </div>
-        `;
-        document.body.appendChild(modal);
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // Populate modal
+        const itemsContainer = document.getElementById('modal-cart-items');
+        const totalEl = document.getElementById('modal-cart-total');
+        
+        let itemsHTML = '';
+        let total = 0;
+
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            itemsHTML += `
+                <div style="padding: 12px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between;">
+                    <div><strong>${item.quantity} × ${item.name}</strong></div>
+                    <div>$${itemTotal.toFixed(2)}</div>
+                </div>
+            `;
+        });
+
+        itemsContainer.innerHTML = itemsHTML || '<p style="color:#888; text-align:center;">Cart is empty</p>';
+        totalEl.textContent = total.toFixed(2);
+
+        modal.style.display = 'flex';
     }
-// Close the modal
-function closeCartModal() {
-    const modal = document.getElementById('cart-modal');
-    if (modal) {
-        modal.style.display = 'none';
+
+    function closeCartModal() {
+        const modal = document.getElementById('cart-modal');
+        if (modal) modal.style.display = 'none';
     }
-}
-// Placeholder for future checkout
-function proceedToCheckout() {
-    closeCartModal();
-    
-    // Calculate total
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
-    
-    alert(`Total: $${total}\n\nRedirecting to secure Stripe checkout...\n\n(Real integration coming - we'll use Stripe Checkout Session)`);
-    
-    // TODO: Replace the alert with actual Stripe redirect
-    // Example future line: window.location.href = "https://your-stripe-checkout-url";
-}
-        // Attach event listeners
+
+    function proceedToCheckout() {
+        closeCartModal();
+        
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
+        
+        alert(`Total: $${total}\n\nCheckout is not connected yet.\n\nWe'll add Stripe or PayPal soon!`);
+        
+        // Future: Replace the alert with real payment code here
+    }
+
+    // ==================== ATTACH EVENT LISTENERS ====================
+    function attachEventListeners() {
         document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', function() {
+            // Remove old listeners to prevent duplicates
+            button.removeEventListener('click', button._handler);
+            
+            button._handler = function() {
                 const name = this.getAttribute('data-name');
                 const price = this.getAttribute('data-price');
                 addToCart(name, price);
-            });
+            };
+            
+            button.addEventListener('click', button._handler);
         });
+    }
 
-        // Initialize
+    // Initialize everything
+    function init() {
+        attachEventListeners();
         updateCartDisplay();
-    </script>
+    }
+
+    // Run when page loads
+    window.onload = init;
+
+</script>
 </body>
 </html>
