@@ -285,14 +285,54 @@
     }
 
     function proceedToCheckout() {
-        closeCartModal();
-        
-        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
-        
-        alert(`Total: $${total}\n\nCheckout is not connected yet.\n\nWe'll add Stripe or PayPal soon!`);
-        
-        // Future: Replace the alert with real payment code here
-    }
+    closeCartModal();
+    
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
+    
+    // Create payment modal
+    let paymentModal = document.createElement('div');
+    paymentModal.id = 'payment-modal';
+    paymentModal.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8); display: flex; align-items: center;
+        justify-content: center; z-index: 2000; font-family: Arial, sans-serif;
+    `;
+    
+    paymentModal.innerHTML = `
+        <div style="background: white; border-radius: 12px; width: 460px; max-width: 95%; padding: 25px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
+            <h2 style="margin-top: 0; color: #333;">Complete Your Order</h2>
+            <p style="font-size: 22px; font-weight: bold; color: #4CAF50; margin: 15px 0;">
+                Total: $${total}
+            </p>
+            
+            <p style="margin: 20px 0 10px 0; color: #555;">Choose payment method:</p>
+            
+            <!-- Stripe Button -->
+            <a href="https://buy.stripe.com/YOUR_STRIPE_LINK_HERE" 
+               target="_blank"
+               style="display: block; background: #635BFF; color: white; padding: 14px; margin: 12px 0; 
+                      border-radius: 8px; text-decoration: none; font-size: 17px; font-weight: bold;">
+                💳 Pay with Stripe
+            </a>
+            
+            <!-- PayPal Button -->
+            <a href="https://www.paypal.com/paypalme/YOUR_PAYPAL_USERNAME" 
+               target="_blank"
+               style="display: block; background: #003087; color: white; padding: 14px; margin: 12px 0; 
+                      border-radius: 8px; text-decoration: none; font-size: 17px; font-weight: bold;">
+                🟡 Pay with PayPal
+            </a>
+            
+            <button onclick="this.closest('#payment-modal').remove()" 
+                    style="margin-top: 15px; padding: 10px 25px; background: #666; color: white; 
+                           border: none; border-radius: 6px; cursor: pointer;">
+                Cancel
+            </button>
+        </div>
+    `;
+    
+    document.body.appendChild(paymentModal);
+}
 
     // ==================== ATTACH EVENT LISTENERS ====================
     function attachEventListeners() {
