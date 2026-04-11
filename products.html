@@ -345,6 +345,34 @@
         // Start the app
         loadInventory();
         updateCartDisplay();
+        // Check if customer just returned from successful Stripe payment
+function checkPaymentSuccess() {
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    if (urlParams.get('success') === 'true') {
+        const product = urlParams.get('product');
+        const qty = parseInt(urlParams.get('qty')) || 1;
+
+        if (product && inventory[product] !== undefined) {
+            // Reduce stock
+            db.ref('inventory/' + product).transaction((current) => {
+                if (current === null) return null;
+                return Math.max(0, current - qty);
+            });
+
+            // Show thank you message
+            setTimeout(() => {
+                alert(`Thank you for your purchase of ${qty} × ${product}!\nStock has been updated.`);
+            }, 800);
+
+            // Clean the URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    }
+}
+
+// Run this when page loads
+window.addEventListener('load', checkPaymentSuccess);
     </script>
 </body>
 </html>
