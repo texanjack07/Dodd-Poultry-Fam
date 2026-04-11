@@ -1,4 +1,4 @@
-CSS/* ====================== GENERAL ====================== */
+/* ====================== GENERAL ====================== */
 * {
     margin: 0;
     padding: 0;
@@ -9,14 +9,17 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f8f5f0;
     color: #333;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
 /* ====================== NAVBAR ====================== */
 .navbar {
-    background-color: #556B2F;        /* Olive Green */
-    padding: 15px 0;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    background-color: #556B2F;        /* Deep Olive Green */
+    padding: 16px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 200;
 }
 
 .navbar ul {
@@ -28,12 +31,12 @@ body {
 }
 
 .navbar a {
-    color: #F5F5DC;                   /* Light beige */
+    color: #F5F5DC;
     text-decoration: none;
     font-weight: bold;
-    padding: 12px 22px;
-    border-radius: 6px;
-    transition: all 0.3s;
+    padding: 12px 24px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
 .navbar a:hover,
@@ -42,70 +45,110 @@ body {
     color: white;
 }
 
-/* ====================== MAIN CONTENT ====================== */
-main {
-    max-width: 1200px;
-    margin: 30px auto;
-    padding: 0 20px;
+/* ====================== HERO / HOME SECTION ====================== */
+#home {
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #556B2F, #6B8E23);
+    color: white;
+    border-radius: 12px;
+    margin: 30px 20px;
 }
 
-h1, h2, h3 {
-    color: #556B2F;
+#home h1 {
+    font-size: 3rem;
     margin-bottom: 15px;
 }
 
-/* Product Cards */
+#home p {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin: 0 auto 25px;
+}
+
+/* Call to Action Button */
+.cta-button {
+    display: inline-block;
+    background: white;
+    color: #556B2F;
+    padding: 16px 36px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.cta-button.secondary {
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+}
+
+/* ====================== PRODUCT GRID ====================== */
+#featured, .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin: 40px 20px;
+}
+
 .product {
     background: white;
     border: 2px solid #556B2F;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 25px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
+    border-radius: 12px;
+    padding: 22px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .product:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
 }
 
+.product h3 {
+    color: #556B2F;
+    margin-bottom: 8px;
+}
+
+/* Status */
+.available { color: #2e8b57; font-weight: bold; }
+.limited   { color: #e67e22; font-weight: bold; }
+.out-of-stock { color: #e74c3c; font-weight: bold; }
+
+/* ====================== PRODUCT CONTROLS (products.html) ====================== */
 .product-controls {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-top: 15px;
+    margin-top: 18px;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 input[type="number"] {
-    width: 70px;
-    padding: 8px;
+    width: 75px;
+    padding: 9px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 6px;
     font-size: 1rem;
-}
-
-/* Status Colors */
-.available { 
-    color: #2e8b57; 
-    font-weight: bold; 
-}
-.limited { 
-    color: #e67e22; 
-    font-weight: bold; 
-}
-.out-of-stock { 
-    color: #e74c3c; 
-    font-weight: bold; 
 }
 
 /* Buttons */
 button {
-    background: #6B8E23;              /* Olive Green */
+    background: #6B8E23;
     color: white;
     border: none;
-    padding: 11px 18px;
-    border-radius: 6px;
+    padding: 12px 20px;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
     transition: background 0.3s;
@@ -117,7 +160,6 @@ button:hover:not(:disabled) {
 
 button:disabled {
     background: #ccc;
-    color: #666;
     cursor: not-allowed;
 }
 
@@ -125,11 +167,10 @@ button:disabled {
 .stripe-pay-btn {
     background: #635BFF;
     color: white;
-    padding: 11px 18px;
-    border-radius: 6px;
+    padding: 12px 20px;
+    border-radius: 8px;
     text-decoration: none;
     font-weight: bold;
-    transition: background 0.3s;
 }
 
 .stripe-pay-btn:hover:not(.disabled) {
@@ -145,34 +186,21 @@ button:disabled {
 /* ====================== CART SIDEBAR ====================== */
 #cart-summary {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: 25px;
+    right: 25px;
     background: white;
-    padding: 20px;
+    padding: 22px;
     border: 3px solid #556B2F;
-    border-radius: 12px;
-    min-width: 300px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border-radius: 14px;
+    min-width: 310px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.18);
     z-index: 100;
 }
 
 .cart-item {
-    margin: 12px 0;
+    margin: 14px 0;
     padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-}
-
-/* Checkout & Clear Buttons */
-.checkout-btn {
-    background: #6B8E23 !important;
-    width: 100%;
-    margin-top: 10px;
-}
-
-.clear-btn {
-    background: #e74c3c !important;
-    width: 100%;
-    margin-top: 8px;
+    border-bottom: 1px solid #eee;
 }
 
 /* ====================== FOOTER ====================== */
@@ -180,8 +208,8 @@ footer {
     background-color: #556B2F;
     color: #F5F5DC;
     text-align: center;
-    padding: 25px;
-    margin-top: 60px;
+    padding: 30px 20px;
+    margin-top: 80px;
 }
 
 footer a {
@@ -193,7 +221,7 @@ footer a {
 @media (max-width: 768px) {
     .navbar ul {
         flex-direction: column;
-        gap: 10px;
+        gap: 12px;
     }
     
     #cart-summary {
@@ -202,5 +230,9 @@ footer a {
         right: 0;
         margin: 20px auto;
         width: 95%;
+    }
+
+    #home {
+        padding: 60px 15px;
     }
 }
