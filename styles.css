@@ -1,4 +1,7 @@
-/* ====================== GENERAL ====================== */
+Here's a clean, cohesive olive green color theme styles.css file tailored for your Dodd Poultry Fam shop.
+Updated styles.css (Olive Green Theme)
+Replace the entire content of your styles.css with this:
+CSS/* ====================== GENERAL ====================== */
 * {
     margin: 0;
     padding: 0;
@@ -7,38 +10,38 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #F5F5DC;     /* Light beige - your original */
+    background-color: #f8f5f0;
     color: #333;
     line-height: 1.6;
 }
 
 /* ====================== NAVBAR ====================== */
 .navbar {
-    background-color: #8B4513;     /* Brown - your original */
+    background-color: #556B2F;        /* Olive Green */
     padding: 15px 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
 }
 
 .navbar ul {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 25px;
+    gap: 30px;
     flex-wrap: wrap;
 }
 
 .navbar a {
-    color: #FFD700;                /* Gold - your original */
+    color: #F5F5DC;                   /* Light beige */
     text-decoration: none;
     font-weight: bold;
-    padding: 12px 20px;
+    padding: 12px 22px;
     border-radius: 6px;
     transition: all 0.3s;
 }
 
 .navbar a:hover,
 .navbar a.active {
-    background-color: #A0522D;
+    background-color: #6B8E23;
     color: white;
 }
 
@@ -50,16 +53,17 @@ main {
 }
 
 h1, h2, h3 {
-    color: #8B4513;
+    color: #556B2F;
     margin-bottom: 15px;
 }
 
 /* Product Cards */
 .product {
-    border: 2px solid #8B4513;
-    border-radius: 8px;
-    padding: 20px;
     background: white;
+    border: 2px solid #556B2F;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     transition: transform 0.3s;
 }
@@ -71,33 +75,52 @@ h1, h2, h3 {
 .product-controls {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     margin-top: 15px;
     flex-wrap: wrap;
 }
 
+input[type="number"] {
+    width: 70px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
 /* Status Colors */
-.available { color: #2e8b57; font-weight: bold; }
-.limited   { color: #e67e22; font-weight: bold; }
-.out-of-stock { color: #e74c3c; font-weight: bold; }
+.available { 
+    color: #2e8b57; 
+    font-weight: bold; 
+}
+.limited { 
+    color: #e67e22; 
+    font-weight: bold; 
+}
+.out-of-stock { 
+    color: #e74c3c; 
+    font-weight: bold; 
+}
 
 /* Buttons */
 button {
-    background: #4CAF50;
+    background: #6B8E23;              /* Olive Green */
     color: white;
     border: none;
-    padding: 10px 16px;
+    padding: 11px 18px;
     border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
+    transition: background 0.3s;
 }
 
 button:hover:not(:disabled) {
-    background: #45a049;
+    background: #556B2F;
 }
 
 button:disabled {
     background: #ccc;
+    color: #666;
     cursor: not-allowed;
 }
 
@@ -105,10 +128,11 @@ button:disabled {
 .stripe-pay-btn {
     background: #635BFF;
     color: white;
-    padding: 10px 16px;
+    padding: 11px 18px;
     border-radius: 6px;
     text-decoration: none;
     font-weight: bold;
+    transition: background 0.3s;
 }
 
 .stripe-pay-btn:hover:not(.disabled) {
@@ -126,25 +150,44 @@ button:disabled {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: #fff;
-    padding: 18px;
-    border: 3px solid #8B4513;
-    border-radius: 10px;
-    min-width: 290px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    background: white;
+    padding: 20px;
+    border: 3px solid #556B2F;
+    border-radius: 12px;
+    min-width: 300px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
     z-index: 100;
 }
 
+.cart-item {
+    margin: 12px 0;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Checkout & Clear Buttons */
+.checkout-btn {
+    background: #6B8E23 !important;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.clear-btn {
+    background: #e74c3c !important;
+    width: 100%;
+    margin-top: 8px;
+}
+
 /* ====================== FOOTER ====================== */
-.footer {
-    background-color: #8B4513;
-    color: white;
+footer {
+    background-color: #556B2F;
+    color: #F5F5DC;
     text-align: center;
-    padding: 20px;
+    padding: 25px;
     margin-top: 60px;
 }
 
-.footer a {
+footer a {
     color: #FFD700;
     text-decoration: none;
 }
@@ -153,7 +196,7 @@ button:disabled {
 @media (max-width: 768px) {
     .navbar ul {
         flex-direction: column;
-        gap: 8px;
+        gap: 10px;
     }
     
     #cart-summary {
