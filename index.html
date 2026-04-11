@@ -7,55 +7,63 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <ul>
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="products.html">Products</a></li>
-                <li><a href="about.html">About</a></li>
-            </ul>
-        </nav>
-    </header>
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
 
     <main>
+        <!-- Hero Section -->
         <section id="home">
             <h1>Welcome to Dodd Poultry Fam</h1>
-            <p>Fresh eggs, healthy chicks, and quality poultry products from our family farm.</p>
-            
-            <a href="products.html" class="cta-button">Shop Now</a>
+            <p>Fresh eggs, healthy chicks, and quality poultry products from our family farm to your table.</p>
+            <a href="products.html" class="cta-button">Shop Our Products</a>
         </section>
 
+        <!-- Featured Products -->
         <section id="featured">
             <h2>Featured Products</h2>
             <div class="product-grid">
                 <div class="product">
                     <h3>Eggs</h3>
                     <p>$5 per dozen</p>
-                    <p class="status">Fresh from our happy hens</p>
+                    <p class="status available">Fresh from happy hens</p>
                 </div>
                 <div class="product">
                     <h3>Chicks</h3>
                     <p>$12 each</p>
-                    <p class="status">Healthy and ready for your farm</p>
+                    <p class="status available">Healthy & ready to grow</p>
                 </div>
                 <div class="product">
                     <h3>Hens</h3>
                     <p>$50 each</p>
-                    <p class="status">Great layers</p>
+                    <p class="status available">Excellent layers</p>
+                </div>
+                <div class="product">
+                    <h3>Roosters</h3>
+                    <p>$20 each</p>
+                    <p class="status limited">Seasonal availability</p>
                 </div>
             </div>
         </section>
 
-        <section id="about">
+        <!-- About Teaser -->
+        <section id="about-teaser">
             <h2>About Dodd Poultry Fam</h2>
-            <p>We are a small family farm dedicated to raising happy, healthy poultry and providing fresh, high-quality products to our community.</p>
+            <p>We are a small family farm committed to raising happy, healthy poultry using traditional methods. 
+               Our goal is to bring fresh, high-quality products straight from our farm to your home.</p>
+            <a href="about.html" class="cta-button secondary">Learn More About Us</a>
         </section>
 
+        <!-- Subscribe -->
         <section id="subscribe">
             <h2>Stay Updated</h2>
-            <p>Get notified about new stock, seasonal availability, and farm updates.</p>
+            <p>Get notified when new stock arrives, seasonal items become available, and farm updates.</p>
             <form action="#" method="post">
-                <input type="email" placeholder="Enter your email" required>
+                <input type="email" placeholder="Enter your email address" required>
                 <button type="submit">Subscribe</button>
             </form>
         </section>
@@ -63,7 +71,9 @@
 
     <footer>
         <p>&copy; 2026 Dodd Poultry Fam • All Rights Reserved</p>
-        <p>Follow us on Instagram: <a href="https://www.instagram.com/doddspoultryfam" target="_blank">@doddspoultryfam</a></p>
+        <p>Follow us on Instagram: 
+            <a href="https://www.instagram.com/doddspoultryfam" target="_blank">@doddspoultryfam</a>
+        </p>
     </footer>
 </body>
 </html>
