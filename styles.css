@@ -7,7 +7,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f5f0;
+    background-color: #f2ede4;        /* Soft warm beige (much easier on the eyes) */
     color: #333;
     line-height: 1.7;
 }
@@ -45,102 +45,36 @@ body {
     color: white;
 }
 
-/* ====================== HERO / HOME SECTION ====================== */
-#home {
-    text-align: center;
-    padding: 80px 20px;
-    background: linear-gradient(135deg, #556B2F, #6B8E23);
-    color: white;
-    border-radius: 12px;
-    margin: 30px 20px;
+/* ====================== MAIN CONTENT ====================== */
+main {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
 }
 
-#home h1 {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-#home p {
-    font-size: 1.25rem;
-    max-width: 700px;
-    margin: 0 auto 25px;
-}
-
-/* Call to Action Button */
-.cta-button {
-    display: inline-block;
-    background: white;
+h1, h2, h3 {
     color: #556B2F;
-    padding: 16px 36px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    border-radius: 50px;
-    text-decoration: none;
-    transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-.cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-}
-
-.cta-button.secondary {
-    background: transparent;
-    border: 2px solid white;
-    color: white;
-}
-
-/* ====================== PRODUCT GRID ====================== */
-#featured, .product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    margin: 40px 20px;
-}
-
-.product {
-    background: white;
+/* Product Cards & Sections */
+.product, .container > div, section {
+    background: #f8f5f0;               /* Very soft off-white / cream */
     border: 2px solid #556B2F;
     border-radius: 12px;
     padding: 22px;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    transition: transform 0.3s, box-shadow 0.3s;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 .product:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.12);
 }
 
-.product h3 {
-    color: #556B2F;
-    margin-bottom: 8px;
-}
-
-/* Status */
+/* Status Colors */
 .available { color: #2e8b57; font-weight: bold; }
-.limited   { color: #e67e22; font-weight: bold; }
+.limited   { color: #d97706; font-weight: bold; }
 .out-of-stock { color: #e74c3c; font-weight: bold; }
-
-/* ====================== PRODUCT CONTROLS (products.html) ====================== */
-.product-controls {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 18px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-input[type="number"] {
-    width: 75px;
-    padding: 9px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
-}
 
 /* Buttons */
 button {
@@ -151,7 +85,6 @@ button {
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
-    transition: background 0.3s;
 }
 
 button:hover:not(:disabled) {
@@ -159,7 +92,7 @@ button:hover:not(:disabled) {
 }
 
 button:disabled {
-    background: #ccc;
+    background: #b0b0b0;
     cursor: not-allowed;
 }
 
@@ -178,9 +111,8 @@ button:disabled {
 }
 
 .stripe-pay-btn.disabled {
-    background: #ccc;
+    background: #b0b0b0;
     color: #666;
-    cursor: not-allowed;
 }
 
 /* ====================== CART SIDEBAR ====================== */
@@ -188,19 +120,28 @@ button:disabled {
     position: fixed;
     top: 25px;
     right: 25px;
-    background: white;
+    background: #f8f5f0;
     padding: 22px;
     border: 3px solid #556B2F;
     border-radius: 14px;
     min-width: 310px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     z-index: 100;
 }
 
-.cart-item {
-    margin: 14px 0;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
+/* ====================== HERO (Home Page) ====================== */
+#home {
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #556B2F, #6B8E23);
+    color: white;
+    border-radius: 12px;
+    margin: 30px 20px;
+}
+
+#home h1 {
+    font-size: 3rem;
+    margin-bottom: 15px;
 }
 
 /* ====================== FOOTER ====================== */
@@ -231,47 +172,4 @@ footer a {
         margin: 20px auto;
         width: 95%;
     }
-
-    #home {
-        padding: 60px 15px;
-    }
-}
-
-/* ====================== ABOUT PAGE ====================== */
-.container {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 0 25px;
-}
-
-.intro {
-    font-size: 1.15rem;
-    margin-bottom: 35px;
-    color: #444;
-}
-
-.timeline {
-    background: white;
-    border-left: 5px solid #6B8E23;
-    padding: 25px;
-    margin: 30px 0;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-}
-
-.timeline-item {
-    margin-bottom: 25px;
-    padding-left: 10px;
-}
-
-.timeline-item:last-child {
-    margin-bottom: 0;
-}
-
-.year {
-    display: block;
-    color: #556B2F;
-    font-weight: bold;
-    font-size: 1.15rem;
-    margin-bottom: 6px;
 }
