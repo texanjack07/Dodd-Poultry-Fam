@@ -194,8 +194,8 @@ function closeCartModal() {
 }
 
 function proceedToCheckout() {
-    closeCartModal();
-    alert("Payment options coming soon!\nYou can use the individual Stripe buttons for now.");
+    localStorage.setItem("checkoutCart", JSON.stringify(cart));
+    window.location.href = "checkout.html";
 }
 
 // Check for successful Stripe payment
