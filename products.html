@@ -79,13 +79,20 @@
     </div>
 
     <!-- Cart Summary -->
-    <div id="cart-summary">
+    <div id="cart-summary" style="max-height: 85vh; overflow-y: auto;">
         <h3>🛒 Your Cart (<span id="cart-count">0</span>)</h3>
         <div id="cart-items"></div>
         <p><strong>Total: $<span id="cart-total">0.00</span></strong></p>
         
-        <button onclick="viewCart()" class="checkout-btn">View / Checkout</button>
-        <button onclick="clearCart()" class="clear-btn">Clear Cart</button>
+        <button onclick="viewCart()" 
+            style="background: #2196F3; color: white; padding: 12px; width: 100%; margin-top: 10px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px;">
+        View / Checkout
+        </button>
+    
+        <button onclick="clearCart()" 
+            style="background: #f44336; color: white; padding: 12px; width: 100%; margin-top: 8px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px;">
+        Clear Cart
+        </button>
     </div>
 
     <script src="script.js"></script>
