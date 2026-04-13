@@ -137,18 +137,27 @@ function viewCart() {
         `;
         
         modal.innerHTML = `
-            <div style="background: white; border-radius: 12px; width: 420px; max-width: 90%; box-shadow: 0 10px 30px rgba(0,0,0,0.3); overflow: hidden;">
-                <div style="background: #6B8E23; color: white; padding: 15px 20px; font-size: 18px; font-weight: bold;">
+            <div style="background: white; border-radius: 12px; width: 420px; max-width: 90%;
+                        box-shadow: 0 10px 30px rgba(0,0,0,0.3); overflow: hidden;">
+                <div style="background: #4CAF50; color: white; padding: 15px 20px; font-size: 18px; font-weight: bold;">
                     🛒 Your Cart
                 </div>
                 <div id="modal-cart-items" style="padding: 20px; max-height: 400px; overflow-y: auto;"></div>
                 <div style="padding: 15px 20px; border-top: 1px solid #eee; background: #f9f9f9;">
                     <p style="margin: 0 0 10px 0; font-size: 18px; font-weight: bold;">
-                        Total: $<span id="modal-cart-total" style="color: #6B8E23;"></span>
+                        Total: $<span id="modal-cart-total" style="color: #4CAF50;"></span>
                     </p>
                     <div style="display: flex; gap: 10px;">
-                        <button onclick="closeCartModal()" style="flex:1; padding:12px; background:#e74c3c; color:white; border:none; border-radius:6px; cursor:pointer;">Close</button>
-                        <button onclick="proceedToCheckout()" style="flex:1; padding:12px; background:#6B8E23; color:white; border:none; border-radius:6px; cursor:pointer;">Checkout</button>
+                        <button onclick="closeCartModal()" 
+                                style="flex: 1; padding: 12px; background: #f44336; color: white; border: none;
+                                       border-radius: 6px; cursor: pointer; font-size: 16px;">
+                            Close
+                        </button>
+                        <button onclick="proceedToCheckout()" 
+                                style="flex: 1; padding: 12px; background: #4CAF50; color: white; border: none;
+                                       border-radius: 6px; cursor: pointer; font-size: 16px;">
+                            Checkout
+                        </button>
                     </div>
                 </div>
             </div>
@@ -156,16 +165,18 @@ function viewCart() {
         document.body.appendChild(modal);
     }
 
+    // Populate the modal with cart items
     const itemsContainer = document.getElementById('modal-cart-items');
     const totalEl = document.getElementById('modal-cart-total');
     
     let itemsHTML = '';
     let total = 0;
+
     cart.forEach(item => {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
         itemsHTML += `
-            <div style="padding:12px 0; border-bottom:1px solid #eee; display:flex; justify-content:space-between;">
+            <div style="padding: 12px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between;">
                 <div><strong>${item.quantity} × ${item.name}</strong></div>
                 <div>$${itemTotal.toFixed(2)}</div>
             </div>
