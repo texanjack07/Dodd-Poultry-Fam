@@ -132,40 +132,52 @@ function viewCart() {
         modal.id = 'cart-modal';
         modal.style.cssText = `
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7); display: flex; align-items: center;
-            justify-content: center; z-index: 1000; font-family: Arial, sans-serif;
+            background: rgba(0,0,0,0.8); display: flex; align-items: center;
+            justify-content: center; z-index: 10000; font-family: Arial, sans-serif;
         `;
         
         modal.innerHTML = `
-            <div style="background: white; border-radius: 12px; width: 420px; max-width: 90%;
-                        box-shadow: 0 10px 30px rgba(0,0,0,0.3); overflow: hidden;">
-                <div style="background: #4CAF50; color: white; padding: 15px 20px; font-size: 18px; font-weight: bold;">
+            <div style="background: white; border-radius: 16px; width: 480px; max-width: 95%; 
+                        box-shadow: 0 20px 40px rgba(0,0,0,0.3); overflow: hidden;">
+                
+                <!-- Modal Header -->
+                <div style="background: linear-gradient(135deg, #2e7d32, #4CAF50); color: white; 
+                            padding: 20px; font-size: 22px; font-weight: bold; text-align: center;">
                     🛒 Your Cart
                 </div>
-                <div id="modal-cart-items" style="padding: 20px; max-height: 400px; overflow-y: auto;"></div>
-                <div style="padding: 15px 20px; border-top: 1px solid #eee; background: #f9f9f9;">
-                    <p style="margin: 0 0 10px 0; font-size: 18px; font-weight: bold;">
-                        Total: $<span id="modal-cart-total" style="color: #4CAF50;"></span>
-                    </p>
-                    <div style="display: flex; gap: 10px;">
+                
+                <!-- Cart Items -->
+                <div id="modal-cart-items" style="padding: 20px; max-height: 420px; overflow-y: auto; background: #fafafa;"></div>
+                
+                <!-- Footer -->
+                <div style="padding: 20px; border-top: 1px solid #eee; background: #f8f9fa;">
+                    <div style="font-size: 22px; font-weight: bold; text-align: center; margin-bottom: 18px;">
+                        Total: $<span id="modal-cart-total" style="color: #2e7d32;"></span>
+                    </div>
+                    
+                    <div style="display: flex; gap: 12px;">
                         <button onclick="closeCartModal()" 
-                                style="flex: 1; padding: 12px; background: #f44336; color: white; border: none;
-                                       border-radius: 6px; cursor: pointer; font-size: 16px;">
+                                style="flex: 1; padding: 16px; background: #757575; color: white; border: none;
+                                       border-radius: 10px; cursor: pointer; font-size: 16px; font-weight: 500;">
                             Close
                         </button>
                         <button onclick="proceedToCheckout()" 
-                                style="flex: 1; padding: 12px; background: #4CAF50; color: white; border: none;
-                                       border-radius: 6px; cursor: pointer; font-size: 16px;">
-                            Checkout
+                                style="flex: 1; padding: 16px; background: #2e7d32; color: white; border: none;
+                                       border-radius: 10px; cursor: pointer; font-size: 16px; font-weight: bold;">
+                            Proceed to Checkout
                         </button>
                     </div>
+                    
+                    <p style="text-align: center; margin: 15px 0 0 0; font-size: 13.5px; color: #555;">
+                        Secure checkout powered by Stripe
+                    </p>
                 </div>
             </div>
         `;
         document.body.appendChild(modal);
     }
 
-    // Populate the modal with cart items
+    // Populate items
     const itemsContainer = document.getElementById('modal-cart-items');
     const totalEl = document.getElementById('modal-cart-total');
     
@@ -176,18 +188,24 @@ function viewCart() {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
         itemsHTML += `
-            <div style="padding: 12px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between;">
-                <div><strong>${item.quantity} × ${item.name}</strong></div>
-                <div>$${itemTotal.toFixed(2)}</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; 
+                        padding: 16px 0; border-bottom: 1px solid #eee;">
+                <div style="flex: 1;">
+                    <strong>${item.quantity} × ${item.name}</strong>
+                </div>
+                <div style="font-weight: bold; color: #2e7d32;">
+                    $${itemTotal.toFixed(2)}
+                </div>
             </div>
         `;
     });
 
-    itemsContainer.innerHTML = itemsHTML || '<p style="color:#888; text-align:center;">Cart is empty</p>';
+    itemsContainer.innerHTML = itemsHTML || 
+        '<p style="text-align:center; color:#888; padding: 40px 0; font-size: 16px;">Your cart is empty</p>';
+    
     totalEl.textContent = total.toFixed(2);
     modal.style.display = 'flex';
 }
-
 function closeCartModal() {
     const modal = document.getElementById('cart-modal');
     if (modal) modal.style.display = 'none';
