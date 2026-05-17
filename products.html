@@ -78,12 +78,12 @@
         </div>
     </div>
 
-    <!-- Improved Cart Summary -->
-<div id="cart-summary" style="max-height: 85vh; overflow-y: auto;">
+<!-- Improved Cart Summary -->
+<div id="cart-summary">
     <h3 style="margin-top: 0; color: #2e7d32;">
         🛒 Your Cart (<span id="cart-count">0</span>)
     </h3>
-    <div id="cart-items" style="min-height: 100px;"></div>
+    <div id="cart-items" style="min-height: 100px; max-height: 45vh; overflow-y: auto;"></div>
     
     <div style="border-top: 2px solid #4CAF50; padding-top: 12px; margin-top: 12px;">
         <p style="font-size: 18px; font-weight: bold; margin: 8px 0;">
@@ -91,13 +91,13 @@
         </p>
         
         <button onclick="viewCart()" 
-                style="background: #2e7d32; color: white; padding: 14px; width: 100%; margin-top: 8px; 
+                style="background: #2e7d32; color: white; padding: 14px; width: 100%; margin: 8px 0; 
                        border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold;">
             View / Checkout
         </button>
         
         <button onclick="clearCart()" 
-                style="background: #d32f2f; color: white; padding: 12px; width: 100%; margin-top: 8px; 
+                style="background: #d32f2f; color: white; padding: 12px; width: 100%; margin: 8px 0; 
                        border: none; border-radius: 8px; cursor: pointer; font-size: 15px;">
             Clear Cart
         </button>
