@@ -124,9 +124,43 @@ button:disabled {
     padding: 22px;
     border: 3px solid #556B2F;
     border-radius: 14px;
-    min-width: 310px;
+    width: 320px;           /* Fixed reasonable width */
+    max-width: 92vw;        /* Prevents overflow on mobile */
+    max-height: 85vh;       /* Prevents going off bottom */
+    overflow-y: auto;       /* Scroll if content is long */
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     z-index: 100;
+    box-sizing: border-box;
+}
+
+/* Make it more mobile-friendly */
+@media (max-width: 768px) {
+    #cart-summary {
+        position: relative;     /* Switch to normal flow on mobile */
+        top: 0;
+        right: 0;
+        margin: 20px auto;
+        width: 95%;
+        max-width: 100%;
+    }
+    
+    /* Optional: Push products down a bit on mobile */
+    .product {
+        margin-right: 0;
+    }
+}
+
+/* Improve modal (the big checkout popup) */
+#cart-modal > div {
+    max-height: 92vh;
+    overflow-y: auto;
+    margin: 10px;
+}
+
+/* Better button spacing */
+button[onclick="viewCart()"],
+button[onclick="clearCart()"] {
+    margin: 8px 0;
 }
 
 /* ====================== HERO (Home Page) ====================== */
