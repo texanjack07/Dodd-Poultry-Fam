@@ -78,22 +78,31 @@
         </div>
     </div>
 
-    <!-- Cart Summary -->
-    <div id="cart-summary" style="max-height: 85vh; overflow-y: auto;">
-        <h3>🛒 Your Cart (<span id="cart-count">0</span>)</h3>
-        <div id="cart-items"></div>
-        <p><strong>Total: $<span id="cart-total">0.00</span></strong></p>
+    <!-- Improved Cart Summary -->
+<div id="cart-summary" style="max-height: 85vh; overflow-y: auto;">
+    <h3 style="margin-top: 0; color: #2e7d32;">
+        🛒 Your Cart (<span id="cart-count">0</span>)
+    </h3>
+    <div id="cart-items" style="min-height: 100px;"></div>
+    
+    <div style="border-top: 2px solid #4CAF50; padding-top: 12px; margin-top: 12px;">
+        <p style="font-size: 18px; font-weight: bold; margin: 8px 0;">
+            Total: $<span id="cart-total" style="color: #2e7d32;">0.00</span>
+        </p>
         
         <button onclick="viewCart()" 
-            style="background: #2196F3; color: white; padding: 12px; width: 100%; margin-top: 10px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px;">
-        View / Checkout
+                style="background: #2e7d32; color: white; padding: 14px; width: 100%; margin-top: 8px; 
+                       border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold;">
+            View / Checkout
         </button>
-    
+        
         <button onclick="clearCart()" 
-            style="background: #f44336; color: white; padding: 12px; width: 100%; margin-top: 8px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px;">
-        Clear Cart
+                style="background: #d32f2f; color: white; padding: 12px; width: 100%; margin-top: 8px; 
+                       border: none; border-radius: 8px; cursor: pointer; font-size: 15px;">
+            Clear Cart
         </button>
     </div>
+</div>
 
     <script src="script.js"></script>
 </body>
